@@ -1,0 +1,21 @@
+name = "soddrop"
+main = "worker/index.js"
+compatibility_date = "2025-06-01"
+
+# The worker also serves the game itself, so one deploy hosts the page, the
+# audio and the party server on the same origin (no CORS, no extra setup).
+[assets]
+directory = "."
+binding = "ASSETS"
+
+[[durable_objects.bindings]]
+name = "PARTY"
+class_name = "Party"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Party"]
+
+# Optional: shorten/lengthen the ready-up countdown while testing.
+# [vars]
+# COUNTDOWN_MS = "5000"
